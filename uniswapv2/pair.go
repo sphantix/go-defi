@@ -16,7 +16,7 @@
  */
 
 // Package uniswap contains the required bindings as well as corresponding wrappers for those bindings for interacting with the uniswap smart contracts.
-package uniswap
+package uniswapv2
 
 import (
 	"encoding/hex"

@@ -14,19 +14,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package uniswap
+package uniswapv2
 
 import (
 	"context"
 	"math/big"
 	"time"
 
-	uniswapv2factory "github.com/bonedaddy/go-defi/bindings/uniswap/factory"
-	uniswapv2pair "github.com/bonedaddy/go-defi/bindings/uniswap/pair"
-	"github.com/bonedaddy/go-defi/utils"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
+	uniswapv2factory "github.com/sphantix/go-defi/bindings/uniswap/factory"
+	uniswapv2pair "github.com/sphantix/go-defi/bindings/uniswap/pair"
+	"github.com/sphantix/go-defi/utils"
 )
 
 // Client allows to do operations on uniswap smart contracts.
