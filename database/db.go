@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/bonedaddy/go-defi/config"
 	"github.com/pkg/errors"
+	"github.com/sphantix/go-defi/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

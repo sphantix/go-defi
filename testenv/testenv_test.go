@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/bonedaddy/go-defi/utils"
+	"github.com/sphantix/go-defi/utils"
 	"github.com/stretchr/testify/require"
 )
 

@@ -8,11 +8,11 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/bonedaddy/go-defi/bclient"
-	"github.com/bonedaddy/go-defi/bindings/erc20"
-	"github.com/bonedaddy/go-defi/config"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/sphantix/go-defi/bclient"
+	"github.com/sphantix/go-defi/bindings/erc20"
+	"github.com/sphantix/go-defi/config"
 	"github.com/stretchr/testify/require"
 )
 

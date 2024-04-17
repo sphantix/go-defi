@@ -8,7 +8,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sphantix/go-defi/sushiswap"
 	"github.com/sphantix/go-defi/testenv"
-	"github.com/sphantix/go-defi/uniswap"
+	"github.com/sphantix/go-defi/uniswapv2"
 	"github.com/sphantix/go-defi/utils"
 )
 
@@ -17,7 +17,7 @@ type BClient struct {
 	ctx    context.Context
 	cancel context.CancelFunc
 	bc     utils.Blockchain
-	uc     *uniswap.Client
+	uc     *uniswapv2.Client
 	sc     *sushiswap.Client
 }
 
@@ -30,7 +30,7 @@ func NewClient(ctx context.Context, bc utils.Blockchain) (*BClient, error) {
 		ctx:    ctx,
 		cancel: cancel,
 		bc:     bc,
-		uc:     uniswap.NewClient(bc),
+		uc:     uniswapv2.NewClient(bc),
 		sc:     sushiswap.NewClient(bc),
 	}, nil
 }
@@ -90,7 +90,7 @@ func (bc *BClient) CurrentBlock() (uint64, error) {
 func (bc *BClient) Sushiswap() *sushiswap.Client { return bc.sc }
 
 // Uniswap returns the underlying uniswap client
-func (bc *BClient) Uniswap() *uniswap.Client { return bc.uc }
+func (bc *BClient) Uniswap() *uniswapv2.Client { return bc.uc }
 
 func (bc *BClient) Context() context.Context { return bc.ctx }
 

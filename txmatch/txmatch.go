@@ -5,12 +5,12 @@ import (
 	"os"
 	"strings"
 
-	"github.com/bonedaddy/go-defi/bclient"
-	"github.com/bonedaddy/go-defi/utils"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/pkg/errors"
+	"github.com/sphantix/go-defi/bclient"
+	"github.com/sphantix/go-defi/utils"
 	"go.uber.org/zap"
 )
 
