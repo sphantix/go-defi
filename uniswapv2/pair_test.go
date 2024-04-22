@@ -53,7 +53,7 @@ func TestGeneratePairAddress(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := GeneratePairAddress(tt.args.token0, tt.args.token1)
+			got := GeneratePairAddress(tt.args.token0, tt.args.token1, Ethereum)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GeneratePairAddress() = %v, want %v", got, tt.want)
 			}

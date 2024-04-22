@@ -29,21 +29,28 @@ import (
 	"github.com/sphantix/go-defi/utils"
 )
 
+const (
+	Ethereum = iota
+	Base
+)
+
 // Client allows to do operations on uniswap smart contracts.
 type Client struct {
-	bc utils.Blockchain
+	bc    utils.Blockchain
+	chain int
 }
 
 // NewClient returns a new instance of uniswap client.
-func NewClient(bc utils.Blockchain) *Client {
+func NewClient(bc utils.Blockchain, chain int) *Client {
 	return &Client{
-		bc: bc,
+		bc:    bc,
+		chain: chain,
 	}
 }
 
 // GetReserves retursn the available reserves in a pair
 func (c *Client) GetReserves(token0, token1 common.Address) (*Reserve, error) {
-	addr := GeneratePairAddress(token0, token1)
+	addr := GeneratePairAddress(token0, token1, c.chain)
 	caller, err := uniswapv2pair.NewUniswapv2pairCaller(addr, c.bc)
 	if err != nil {
 		return nil, errors.Wrap(err, "new uniswap pair caller")
@@ -87,7 +94,7 @@ func (c *Client) GetReserveFromPair(addr common.Address) (*Reserve, error) {
 
 // GetReserves retursn the available reserves in a pair
 func (c *Client) GetReservesInBlock(token0, token1 common.Address, bn int64) (*Reserve, error) {
-	addr := GeneratePairAddress(token0, token1)
+	addr := GeneratePairAddress(token0, token1, c.chain)
 	caller, err := uniswapv2pair.NewUniswapv2pairCaller(addr, c.bc)
 	if err != nil {
 		return nil, errors.Wrap(err, "new uniswap pair caller")
@@ -165,5 +172,5 @@ func (c *Client) GetExchangeAmountForPath(amount *big.Int, tokens ...common.Addr
 
 // Factory returns a uniswap cactory factory binding
 func (c *Client) Factory() (*uniswapv2factory.Uniswapv2factory, error) {
-	return uniswapv2factory.NewUniswapv2factory(FactoryAddress, c.bc)
+	return uniswapv2factory.NewUniswapv2factory(FactoryAddressEth, c.bc)
 }

@@ -7,6 +7,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/sphantix/go-defi/bclient"
 	"github.com/sphantix/go-defi/config"
+	"github.com/sphantix/go-defi/uniswapv2"
 	"github.com/urfave/cli/v2"
 )
 
@@ -31,7 +32,7 @@ func transactionsCommand() *cli.Command {
 					if err != nil {
 						return errors.Wrap(err, "eth client")
 					}
-					bc, err := bclient.NewClient(ctx, client)
+					bc, err := bclient.NewClient(ctx, client, uniswapv2.Ethereum)
 					if err != nil {
 						return errors.Wrap(err, "new client")
 					}

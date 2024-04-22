@@ -11,6 +11,7 @@ import (
 	"github.com/sphantix/go-defi/bclient"
 	"github.com/sphantix/go-defi/config"
 	"github.com/sphantix/go-defi/txmatch"
+	"github.com/sphantix/go-defi/uniswapv2"
 	"github.com/urfave/cli/v2"
 )
 
@@ -37,7 +38,7 @@ func txMatchCommand() *cli.Command {
 			if err != nil {
 				return errors.Wrap(err, "read file")
 			}
-			bc, err := bclient.NewClient(ctx, client)
+			bc, err := bclient.NewClient(ctx, client, uniswapv2.Ethereum)
 			if err != nil {
 				return errors.Wrap(err, "new client")
 			}

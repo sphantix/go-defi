@@ -24,13 +24,13 @@ type BClient struct {
 // New returns a new bclient implementation without any authentication
 // as well as wrappers around the uniswap and sushiswap clients. All underlying
 // types are exposed in addition to helper functions
-func NewClient(ctx context.Context, bc utils.Blockchain) (*BClient, error) {
+func NewClient(ctx context.Context, bc utils.Blockchain, chain int) (*BClient, error) {
 	ctx, cancel := context.WithCancel(ctx)
 	return &BClient{
 		ctx:    ctx,
 		cancel: cancel,
 		bc:     bc,
-		uc:     uniswapv2.NewClient(bc),
+		uc:     uniswapv2.NewClient(bc, chain),
 		sc:     sushiswap.NewClient(bc),
 	}, nil
 }

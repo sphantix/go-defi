@@ -13,6 +13,7 @@ import (
 	"github.com/sphantix/go-defi/bclient"
 	"github.com/sphantix/go-defi/bindings/erc20"
 	"github.com/sphantix/go-defi/config"
+	"github.com/sphantix/go-defi/uniswapv2"
 	"github.com/stretchr/testify/require"
 )
 
@@ -37,7 +38,7 @@ func TestTxMatch(t *testing.T) {
 	require.NoError(t, err)
 	ec, err := cfg.EthClient(ctx)
 	require.NoError(t, err)
-	bc, err := bclient.NewClient(ctx, ec)
+	bc, err := bclient.NewClient(ctx, ec, uniswapv2.Ethereum)
 	require.NoError(t, err)
 	parsedABI, err := abi.JSON(strings.NewReader(erc20.Erc20ABI))
 	require.NoError(t, err)

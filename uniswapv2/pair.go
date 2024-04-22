@@ -26,8 +26,9 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
-// FactoryAddress points to the uniswap factory.
-var FactoryAddress = common.HexToAddress("0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f")
+// FactoryAddressEth points to the uniswap factory.
+var FactoryAddressEth = common.HexToAddress("0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f")
+var FactoryAddressBase = common.HexToAddress("0x8909Dc15e40173Ff4699343b6eB8132c65e18eC6")
 
 // Router02Address points to the uniswap v2 02 router.
 var Router02Address = common.HexToAddress("0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")
@@ -35,7 +36,7 @@ var Router02Address = common.HexToAddress("0x7a250d5630B4cF539739dF2C5dAcb4c659F
 const pairAddressSuffix = "96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f"
 
 // GeneratePairAddress generates a pair address for the given tokens
-func GeneratePairAddress(token0, token1 common.Address) common.Address {
+func GeneratePairAddress(token0, token1 common.Address, chain int) common.Address {
 	// addresses need to be sorted in an ascending order for proper behaviour
 	token0, token1 = sortAddressess(token0, token1)
 
@@ -43,7 +44,11 @@ func GeneratePairAddress(token0, token1 common.Address) common.Address {
 	// see: https://uniswap.org/docs/v2/javascript-SDK/getting-pair-addresses/
 	message := []byte{255}
 
-	message = append(message, FactoryAddress.Bytes()...)
+	if chain == Ethereum {
+		message = append(message, FactoryAddressEth.Bytes()...)
+	} else {
+		message = append(message, FactoryAddressBase.Bytes()...)
+	}
 
 	addrSum := token0.Bytes()
 	addrSum = append(addrSum, token1.Bytes()...)
