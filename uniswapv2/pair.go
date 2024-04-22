@@ -46,7 +46,7 @@ func GeneratePairAddress(token0, token1 common.Address, chain int) common.Addres
 
 	if chain == Ethereum {
 		message = append(message, FactoryAddressEth.Bytes()...)
-	} else {
+	} else if chain == Base {
 		message = append(message, FactoryAddressBase.Bytes()...)
 	}
 

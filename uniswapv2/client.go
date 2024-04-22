@@ -32,6 +32,7 @@ import (
 const (
 	Ethereum = iota
 	Base
+	Unsupported
 )
 
 // Client allows to do operations on uniswap smart contracts.
@@ -42,6 +43,10 @@ type Client struct {
 
 // NewClient returns a new instance of uniswap client.
 func NewClient(bc utils.Blockchain, chain int) *Client {
+	if chain >= Unsupported {
+		panic("unsupported chain, use correct chain id")
+	}
+
 	return &Client{
 		bc:    bc,
 		chain: chain,
