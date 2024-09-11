@@ -24,8 +24,8 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/pkg/errors"
-	uniswapv2factory "github.com/sphantix/go-defi/bindings/uniswap/factory"
-	uniswapv2pair "github.com/sphantix/go-defi/bindings/uniswap/pair"
+	uniswapv2factory "github.com/sphantix/go-defi/bindings/uniswap/v2factory"
+	uniswapv2pair "github.com/sphantix/go-defi/bindings/uniswap/v2pair"
 	"github.com/sphantix/go-defi/utils"
 )
 
