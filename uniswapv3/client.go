@@ -55,3 +55,28 @@ func (c *Client) GetLiquidityFromPool(pool common.Address) (*big.Int, error) {
 
 	return liquidity, nil
 }
+
+func (c *Client) GetTokens(pool common.Address) ([]common.Address, error) {
+	caller, err := uniswapv3pool.NewUniv3poolCaller(pool, c.bc)
+	if err != nil {
+		return nil, errors.Wrap(err, "new uniswap v3 pool caller")
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+
+	token0, err := caller.Token0(&bind.CallOpts{
+		Context: ctx,
+	})
+	if err != nil {
+		return nil, errors.Wrap(err, "get token0 failed")
+	}
+	token1, err := caller.Token1(&bind.CallOpts{
+		Context: ctx,
+	})
+	if err != nil {
+		return nil, errors.Wrap(err, "get token1 failed")
+	}
+
+	return []common.Address{token0, token1}, nil
+}
