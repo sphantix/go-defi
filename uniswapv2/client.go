@@ -148,6 +148,25 @@ func (c *Client) GetTokens(addr common.Address) ([]common.Address, error) {
 	return []common.Address{token0, token1}, nil
 }
 
+// GetFactory returns the factory address for a given pair
+func (c *Client) GetFactory(addr common.Address) (common.Address, error) {
+	caller, err := uniswapv2pair.NewUniswapv2pairCaller(addr, c.bc)
+	if err != nil {
+		return common.Address{}, errors.Wrap(err, "new uniswap pair caller")
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+
+	factory, err := caller.Factory(&bind.CallOpts{
+		Context: ctx,
+	})
+	if err != nil {
+		return common.Address{}, errors.Wrap(err, "get factory failed")
+	}
+	return factory, nil
+}
+
 // GetExchangeAmount returns the amount of tokens you'd receive when exchanging the given amount of token0 to token1.
 func (c *Client) GetExchangeAmount(amount *big.Int, token0, token1 common.Address) (*big.Int, error) {
 	reserves, err := c.GetReserves(token0, token1)

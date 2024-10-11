@@ -80,3 +80,22 @@ func (c *Client) GetTokens(pool common.Address) ([]common.Address, error) {
 
 	return []common.Address{token0, token1}, nil
 }
+
+// GetFactory returns the factory address for a given pool
+func (c *Client) GetFactory(pool common.Address) (common.Address, error) {
+	caller, err := uniswapv3pool.NewUniv3poolCaller(pool, c.bc)
+	if err != nil {
+		return common.Address{}, errors.Wrap(err, "new uniswap v3 pool caller")
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+
+	factory, err := caller.Factory(&bind.CallOpts{
+		Context: ctx,
+	})
+	if err != nil {
+		return common.Address{}, errors.Wrap(err, "get factory failed")
+	}
+	return factory, nil
+}
