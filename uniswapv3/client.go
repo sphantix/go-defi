@@ -99,3 +99,22 @@ func (c *Client) GetFactory(pool common.Address) (common.Address, error) {
 	}
 	return factory, nil
 }
+
+// GetFee returns the fee for a given pool
+func (c *Client) GetFee(pool common.Address) (*big.Int, error) {
+	caller, err := uniswapv3pool.NewUniv3poolCaller(pool, c.bc)
+	if err != nil {
+		return nil, errors.Wrap(err, "new uniswap v3 pool caller")
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+
+	fee, err := caller.Fee(&bind.CallOpts{
+		Context: ctx,
+	})
+	if err != nil {
+		return nil, errors.Wrap(err, "get fee failed")
+	}
+	return fee, nil
+}
