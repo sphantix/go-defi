@@ -15,6 +15,7 @@ import (
 const (
 	Ethereum = iota
 	Base
+	BSC
 	Unsupported
 )
 

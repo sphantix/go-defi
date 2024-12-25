@@ -29,6 +29,7 @@ import (
 // FactoryAddressEth points to the uniswap factory.
 var FactoryAddressEth = common.HexToAddress("0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f")
 var FactoryAddressBase = common.HexToAddress("0x8909Dc15e40173Ff4699343b6eB8132c65e18eC6")
+var FactoryAddressBSC = common.HexToAddress("0x8909Dc15e40173Ff4699343b6eB8132c65e18eC6")
 
 // Router02Address points to the uniswap v2 02 router.
 var Router02Address = common.HexToAddress("0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D")
@@ -48,6 +49,8 @@ func GeneratePairAddress(token0, token1 common.Address, chain int) common.Addres
 		message = append(message, FactoryAddressEth.Bytes()...)
 	} else if chain == Base {
 		message = append(message, FactoryAddressBase.Bytes()...)
+	} else if chain == BSC {
+		message = append(message, FactoryAddressBSC.Bytes()...)
 	}
 
 	addrSum := token0.Bytes()
