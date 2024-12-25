@@ -50,7 +50,7 @@ Wrapper around go-ethereum's `ethclient` package for using sushiswap v2.
 
 ## uniswap
 
-Wrapper around go-ethereum's `ethclient` package for using uniswap v2. 
+Wrapper around go-ethereum's `ethclient` package for using uniswap v2.
 
 ## testenv
 
@@ -66,4 +66,15 @@ Provides utility functions including all [goethereum book utils](https://goether
 
 ```shell
 $> /go-defi txm --methods transfer --methods transferFrom --methods buy --contract.address 0x5ade7aE8660293F2ebfcEfaba91d141d72d221e8
+```
+
+## abi generation
+### install abigen
+```shell
+$> go install github.com/ethereum/go-ethereum/cmd/abigen@latest
+```
+
+### generate bindings
+```shell
+$> abigen --abi=./abi/pancake/v2pair.min.abi --pkg=pancakev2pair --out=v2pair.go --type=Pancakev2pair
 ```
