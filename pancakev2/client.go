@@ -108,6 +108,25 @@ func (c *Client) GetReservesInBlock(token0, token1 common.Address, bn int64) (*R
 	return &Reserve{Reserve0: reserves.Reserve0, Reserve1: reserves.Reserve1, BlockTimestampLast: reserves.BlockTimestampLast}, nil
 }
 
+// GetReserves retursn the available reserves in a pair
+func (c *Client) GetReservesInBlockByPair(pair common.Address, bn int64) (*Reserve, error) {
+	caller, err := pancakev2pair.NewPancakev2pairCaller(pair, c.bc)
+	if err != nil {
+		return nil, errors.Wrap(err, "new uniswap pair caller")
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*30)
+	defer cancel()
+	reserves, err := caller.GetReserves(&bind.CallOpts{
+		Context:     ctx,
+		BlockNumber: big.NewInt(bn),
+	})
+	if err != nil {
+		return nil, errors.Wrap(err, "get reserves")
+	}
+
+	return &Reserve{Reserve0: reserves.Reserve0, Reserve1: reserves.Reserve1, BlockTimestampLast: reserves.BlockTimestampLast}, nil
+}
+
 func (c *Client) GetTokens(pair common.Address) ([]common.Address, error) {
 	caller, err := pancakev2pair.NewPancakev2pairCaller(pair, c.bc)
 	if err != nil {
