@@ -57,6 +57,27 @@ func (c *Client) GetLiquidityFromPool(pool common.Address) (*big.Int, error) {
 	return liquidity, nil
 }
 
+// GetLiquidityInBlockFromPool returns the liquidity of the pool in a given block.
+func (c *Client) GetLiquidityInBlockFromPool(pool common.Address, bn int64) (*big.Int, error) {
+	caller, err := uniswapv3pool.NewUniv3poolCaller(pool, c.bc)
+	if err != nil {
+		return nil, errors.Wrap(err, "new uniswap v3 pool caller")
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+
+	liquidity, err := caller.Liquidity(&bind.CallOpts{
+		Context:     ctx,
+		BlockNumber: big.NewInt(bn),
+	})
+	if err != nil {
+		return nil, errors.Wrap(err, "get liquidity")
+	}
+
+	return liquidity, nil
+}
+
 func (c *Client) GetTokens(pool common.Address) ([]common.Address, error) {
 	caller, err := uniswapv3pool.NewUniv3poolCaller(pool, c.bc)
 	if err != nil {

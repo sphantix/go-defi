@@ -46,9 +46,9 @@ func TestGeneratePairAddress(t *testing.T) {
 			name: "calculate address correctly if addresses are not sorted",
 			args: args{
 				token0: common.HexToAddress("0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"),
-				token1: common.HexToAddress("0x59E69094398AfbEA632F8Bd63033BdD2443a3Be1"),
+				token1: common.HexToAddress("0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d"),
 			},
-			want: common.HexToAddress("0x001B3389C5EfB25272E95C27C3d99A2BD9CA9e4c"),
+			want: common.HexToAddress("0xd99c7F6C65857AC913a8f880A4cb84032AB2FC5b"),
 		},
 	}
 	for _, tt := range tests {
